@@ -1,26 +1,15 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Article from "src/containers/Article/Article";
 
-const baseArticles = [
-  {
-    id: 1,
-    title: "post 1",
-    body: "Quisque cursus, metus vitae pharetra",
-  },
-  {
-    id: 2,
-    title: "post 2",
-    body: "Quisque cursus, metus vitae pharetra",
-  },
-];
+import { ArticleContext } from "src/context/articleContext";
 
 const Articles = () => {
-  const [articles, setArticles] = useState(baseArticles);
+  const { articles } = useContext(ArticleContext);
 
   return (
     <div>
-      {articles.map((article, i) => (
-        <Article key={i} article={article} />
+      {articles.map((article) => (
+        <Article key={article.id} article={article} />
       ))}
     </div>
   );
