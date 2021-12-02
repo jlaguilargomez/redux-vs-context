@@ -19,7 +19,10 @@ const ArticleProvider = ({ children }) => {
   const [articles, setArticles] = useState(baseArticles);
 
   const saveArticle = (article) => {
-    console.log("pene", article);
+    setArticles((articles) => [
+      ...articles,
+      { ...article, id: Math.random() * 1 },
+    ]);
   };
 
   return (

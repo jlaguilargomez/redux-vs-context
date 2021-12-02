@@ -1,15 +1,24 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ArticleContext } from "src/context/articleContext";
+
+const initForm = {
+  title: "",
+  body: "",
+};
 
 const AddArticle = () => {
-  const [article, setArticle] = useState();
+  const [form, setForm] = useState(initForm);
+  const { saveArticle } = useContext(ArticleContext);
 
   const handleArticleData = (e) => {
-    console.log(e);
+    setForm((formVal) => {
+      return { ...formVal, [e.target.name]: e.target.value };
+    });
   };
 
   const addNewArticle = (e) => {
     e.preventDefault();
-    console.log(e);
+    saveArticle(form);
   };
 
   return (
@@ -18,6 +27,7 @@ const AddArticle = () => {
         type="text"
         name="title"
         id="title"
+        value={form.title}
         placeholder="Title"
         onChange={handleArticleData}
       />
