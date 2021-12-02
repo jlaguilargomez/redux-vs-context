@@ -1,24 +1,25 @@
 import { useState, useContext } from "react";
 import { ArticleContext } from "src/context/articleContext";
 
-const initForm = {
+const initArticle = {
   title: "",
   body: "",
 };
 
 const AddArticle = () => {
-  const [form, setForm] = useState(initForm);
-  const { saveArticle } = useContext(ArticleContext);
+  const [newArticle, setNewArticle] = useState(initArticle);
+  const { dispatch } = useContext(ArticleContext);
 
   const handleArticleData = (e) => {
-    setForm((formVal) => {
-      return { ...formVal, [e.target.name]: e.target.value };
+    setNewArticle((article) => {
+      return { ...article, [e.target.name]: e.target.value };
     });
   };
 
   const addNewArticle = (e) => {
     e.preventDefault();
-    saveArticle(form);
+    console.log(newArticle);
+    dispatch({ type: "ADD_ARTICLE", payload: newArticle });
   };
 
   return (
@@ -27,7 +28,7 @@ const AddArticle = () => {
         type="text"
         name="title"
         id="title"
-        value={form.title}
+        value={newArticle.title}
         placeholder="Title"
         onChange={handleArticleData}
       />
@@ -35,6 +36,7 @@ const AddArticle = () => {
         type="text"
         name="body"
         id="body"
+        value={newArticle.body}
         placeholder="Body"
         onChange={handleArticleData}
       />

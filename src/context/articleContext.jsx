@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useReducer } from "react";
+import { reducer } from "src/reducer/reducer";
 
 const baseArticles = [
   {
@@ -16,17 +17,18 @@ const baseArticles = [
 export const ArticleContext = createContext();
 
 const ArticleProvider = ({ children }) => {
-  const [articles, setArticles] = useState(baseArticles);
+  const [articles, dispatch] = useReducer(reducer, baseArticles);
+  // const [articles, setArticles] = useState(baseArticles);
 
-  const saveArticle = (article) => {
-    setArticles((articles) => [
-      ...articles,
-      { ...article, id: Math.random() * 1 },
-    ]);
-  };
+  // const saveArticle = (article) => {
+  //   setArticles((articles) => [
+  //     ...articles,
+  //     { ...article, id: Math.random() * 1 },
+  //   ]);
+  // };
 
   return (
-    <ArticleContext.Provider value={{ articles, saveArticle }}>
+    <ArticleContext.Provider value={{ articles, dispatch }}>
       {children}
     </ArticleContext.Provider>
   );
